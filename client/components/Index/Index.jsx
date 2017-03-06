@@ -1,73 +1,45 @@
 import React, { Component } from 'react';
-import FilterableRepoTable from '../FilterableRepoTable/FilterableRepoTable';
+import RepoList from '../RepoList/RepoList';
+import SearchBar from '../SearchBar/SearchBar';
 var axios = require('axios');
 
-var IndexComponent = React.createClass({
-  resultsArray : [],
+export default class Index extends Component{
 
-  getInitialState : function() {
-    return { repos: [] };
-  },
+	constructor(props){
+		super(props);
 
-  componentDidMount : function() {
+		this.state = {
+			organization: 'netflix',
+			repos: [],
+			filterText: ''            
+		};
 
-    var username = 'netflix';
-    var resultsArray = [];
+		axios.get(`http://api.github.com/orgs/${this.state.organization}/repos`).then((res)=>{
+			this.setState({
+				repos: res.data
+			});
+		})
 
-    axios.get('https://api.github.com/orgs/' + username + '/repos')
-      .then(function (response) {
-        var repos = response.data;
+	    this.handleFilterTextInput = this.handleFilterTextInput.bind(this);
 
-        function filterByKeys(obj, keep) {
+	}
 
-            var result = {};
-            for (var i = 0, len = keep.length; i < len; i++) {
-                var key = keep[i];
-                if (Object.hasOwnProperty.call(obj, key)) {
-                    result[key] = obj[key];
-                }
-            }
+	handleFilterTextInput(filterText) {
+		this.setState({
+		  filterText: filterText
+		});
+	}	
 
-            return result;
-        };        
-
-        repos.forEach(function(repo) {
-          var entry = filterByKeys(repo, [ 'name', 'open_issues', 'stargazers_count' ]);  
-
-          resultsArray.push(entry);
-        });        
-
-        console.log(resultsArray);        
-
-      })
-
-      .catch(function (error) {
-        console.log(error);
-      });    
-
-    this.setState({repos: resultsArray});
-
-  },
-
-  render : function() {
-    if (this.props.length === 0) {
-      return (
-        <p ref="empty">Index is empty.</p>
-      );
-    }
-
-    return (
-      <section>
-        <FilterableRepoTable 
-          repos={this.state.repos}
-        />
-      </section>
-    );
-  }
-});
-
-// IndexComponent.defaultProps = {
-//   repos: {this.state.repos}
-// }
-
-export default IndexComponent;
+	render(){
+	  var orgName = this.state.organization.charAt(0).toUpperCase() + this.state.organization.slice(1);
+		return(
+			<section className="content">
+			<section className="header">
+				<h3 className="app-title">{orgName} Github</h3>
+				<p className="headline">Tool to browse {orgName} repositories.</p>
+			</section>
+			<RepoList repos={this.state.repos}/>
+			</section>
+		)
+	}
+}

@@ -4,3 +4,40 @@ body {
   background: $background;
   font-family: "Helvetica Neue", serif;
 }
+
+.content {
+	width: 80%;
+	margin: auto;
+}
+
+.header {
+    margin: 60px 0 20px;
+}
+
+.repo-list {
+	padding: 5px;
+	list-style-type: none;
+	background: #e0e0e0;
+
+	.repo-list-item {
+		list-style: none;
+	    padding: 5px;
+	    margin: 5px 0;
+	    background: #fff;
+
+	    &:first-child {
+	    	margin-top: 0;
+	    }
+
+	    &:last-child {
+	    	margin-bottom: 0;
+	    }	    
+	}
+}
+
+.repo-org-avatar {
+	width: 20px;
+	height: 20px;
+	margin-right: 6px;
+	vertical-align: middle;
+}
