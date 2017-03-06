@@ -3,14 +3,10 @@ import RepoRow from '../RepoRow/RepoRow';
 import RepoCategoryRow from '../RepoCategoryRow/RepoCategoryRow';
 
 class RepoTable extends React.Component {
-  constructor(state) {
-    super(state);
-  }
-
   render() {
     var rows = [];
     var lastCategory = null;  
-    this.state.repos.forEach((repo) => {
+    this.props.repos.forEach((repo) => {
       if (repo.name.indexOf(this.props.filterText) === -1) {
         return;
       }

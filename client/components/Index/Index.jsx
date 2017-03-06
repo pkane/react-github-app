@@ -1,50 +1,51 @@
 import React, { Component } from 'react';
 import FilterableRepoTable from '../FilterableRepoTable/FilterableRepoTable';
-var GitHub = require('github-api');
+var axios = require('axios');
 
 var IndexComponent = React.createClass({
+  resultsArray : [],
+
   getInitialState : function() {
-    return { repos: {} };
+    return { repos: [] };
   },
 
   componentDidMount : function() {
 
-    // basic auth
-    var gh = new GitHub({
-      token: '0d92901f3063542e769d58bc8c4dd0504841d16b'
-    });
+    var username = 'netflix';
+    var resultsArray = [];
 
-    var netflix = gh.getOrganization('netflix');
-    this.resultsArray = [];
+    axios.get('https://api.github.com/orgs/' + username + '/repos')
+      .then(function (response) {
+        var repos = response.data;
 
-    function filterByKeys(obj, keep) {
+        function filterByKeys(obj, keep) {
 
-        var result = {};
-        for (var i = 0, len = keep.length; i < len; i++) {
-            var key = keep[i];
-            if (Object.hasOwnProperty.call(obj, key)) {
-                result[key] = obj[key];
+            var result = {};
+            for (var i = 0, len = keep.length; i < len; i++) {
+                var key = keep[i];
+                if (Object.hasOwnProperty.call(obj, key)) {
+                    result[key] = obj[key];
+                }
             }
-        }
 
-        return result;
-    };
+            return result;
+        };        
 
-    var repoList = netflix.getRepos(function(err, repos) {
+        repos.forEach(function(repo) {
+          var entry = filterByKeys(repo, [ 'name', 'open_issues', 'stargazers_count' ]);  
 
-      var repoArray = repos;
+          resultsArray.push(entry);
+        });        
 
-      repoArray.forEach(function(repo) {
-        var entry = filterByKeys(repo, [ 'name', 'open_issues', 'stargazers_count' ]);  
+        console.log(resultsArray);        
 
-        this.resultsArray.push(entry);
-      });
+      })
 
-      console.log(repoArray);  
+      .catch(function (error) {
+        console.log(error);
+      });    
 
-    });
-
-    this.setState({repos: this.resultsArray});
+    this.setState({repos: resultsArray});
 
   },
 
@@ -57,14 +58,16 @@ var IndexComponent = React.createClass({
 
     return (
       <section>
-        <div>{this.resultsArray}</div>
+        <FilterableRepoTable 
+          repos={this.state.repos}
+        />
       </section>
     );
   }
 });
 
 // IndexComponent.defaultProps = {
-//   repos: repoList
+//   repos: {this.state.repos}
 // }
 
 export default IndexComponent;
