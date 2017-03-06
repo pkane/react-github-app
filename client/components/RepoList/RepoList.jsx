@@ -2,37 +2,18 @@ import React, { Component } from 'react';
 
 export default class RepoList extends Component{
 
-    // constructor(state) {
-    //     super(state);
-    //     this.state = {
-    //       filterText: ''
-    //     };
-    // }
-
     createItems(){
-        return this.props.repos.map((repo)=><li className="repo-list-item" key={repo.id}><img className="repo-org-avatar" src={repo.owner.avatar_url} />{repo.name}</li>);
+        return this.props.repos.map((repo)=> {
+            return (
+                <li className="repo-list-item" key={repo.id} onClick={()=>this.props.onRepoSelected(repo)}>
+                    <img className="repo-org-avatar" src={repo.owner.avatar_url} />                
+                    <p>{repo.name}</p>
+                    <span className="small-text">Watchers: {repo.watchers}</span>
+                    <span className="small-text">Forks: {repo.forks_count}</span>
+                </li>
+            )
+        });
     }
-
-    // render () {
-    // var elements = this.createItems();
-
-    // var filteredElements = elements
-    //   .filter(e => e.includes(this.state.filterText))
-    //   .map(e => <li>{ e }</li>)
-
-    // return (
-    //   <div>
-    //     <input
-    //       type="text"
-    //       value={ this.state.filterText }
-    //       onChange={ e => this.setState({ filterText: e.target.value }) } />
-    //     <ul className="repo-list">
-    //       { filteredElements }
-    //     </ul>
-    //   </div>
-    // );
-    // }
-
 
     render(){
         return(
@@ -44,5 +25,6 @@ export default class RepoList extends Component{
 }
 
 RepoList.propTypes = {
-    repos: React.PropTypes.array.isRequired
+    repos: React.PropTypes.array.isRequired,
+    onRepoSelected: React.PropTypes.func.isRequired    
 };

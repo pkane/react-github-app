@@ -11,10 +11,6 @@ Clone repository and run:
 $ npm install
 ```
 
-Alternatively, you can deploy your own copy with one click using this button:
-
-[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/srn/react-webpack-boilerplate)
-
 ## Requirements
 
 node 5+
@@ -59,11 +55,10 @@ Coverage
 $ npm test -- --coverage
 ```
 
-## License
+## Author
+
+Paul Kane
+
+## Boilerplate
 
 MIT © [Søren Brokær](http://srn.io)
-
-[travis]: https://travis-ci.org/srn/react-webpack-boilerplate
-[travis-badge]: http://img.shields.io/travis/srn/react-webpack-boilerplate.svg?style=flat-square
-[coveralls]: https://coveralls.io/r/srn/react-webpack-boilerplate
-[coveralls-badge]: http://img.shields.io/coveralls/srn/react-webpack-boilerplate.svg?style=flat-square
