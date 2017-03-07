@@ -8,10 +8,6 @@ import RepoList from '../src/components/RepoList/RepoList';
 import RepoDetail from '../src/components/RepoDetail/RepoDetail';
 
 describe('<Index />', () => {
-    // it('renders one Index component', () => {
-    //     const wrapper = shallow(<Index repos={repos} />);
-    //     expect(wrapper.find(RepoList).length).toBe(1);
-    // });
 
     it('Doesn\'t render DetailsComponent on init', () => {
         const wrapper = shallow(<Index />);

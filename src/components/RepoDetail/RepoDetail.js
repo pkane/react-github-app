@@ -15,7 +15,7 @@ export default class RepoDetail extends Component{
 
         return(
             <section>
-                <h3 styleName="styles1.headline">'{repo.name}'' Latest Commits</h3>
+                <h3 styleName="styles1.headline">'{repo.name}' Latest Commits</h3>
                 <ul styleName="styles2.commitsList">
                     {this.getCommits()}
                 </ul>
