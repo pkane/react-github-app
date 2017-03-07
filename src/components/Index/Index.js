@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import RepoList from '../RepoList/RepoList';
-import SearchBar from '../SearchBar/SearchBar';
 import RepoDetail from '../RepoDetail/RepoDetail';
 import axios from 'axios';
+
+import styles from './index.styles.css';
 
 export default class Index extends Component{
 
@@ -15,12 +16,13 @@ export default class Index extends Component{
             filteredRepos : [],
             selectedRepo: null,            
             filteredText : '',
-            orderAsc: true          
+            orderAsc: true,
+            orderBy : 'name'
         };
 
         axios.get(`http://api.github.com/orgs/${this.state.organization}/repos?client_id=b7494ef1a91f220d048b&client_secret=68957ccd33ac4badae434ac8240f2e01e0179d1f`).then((res)=>{
             this.setState({
-                repos: this.sortArray(res.data, true, 'name')
+                repos: this.sortArray(res.data, true, this.state.orderBy)
             });
         })
 
@@ -45,7 +47,7 @@ export default class Index extends Component{
             )
         }
 
-        return <p className="default-copy">Select a repo to view a list of commits.</p>;
+        return <p styleName="defaultCopy">Select a repo to view a list of commits.</p>;
     }    
 
     filter(e){
@@ -94,27 +96,28 @@ export default class Index extends Component{
         this.setState({
             orderAsc: !this.state.orderAsc,
             repos: this.sortArray(this.state.repos, !this.state.orderAsc, attr),
-            filteredRepos: this.sortArray(this.state.filteredRepos, !this.state.orderAsc, attr)
+            filteredRepos: this.sortArray(this.state.filteredRepos, !this.state.orderAsc, attr),
+            orderBy : attr
         });
     }    
 
     render(){
       var orgName = this.state.organization.charAt(0).toUpperCase() + this.state.organization.slice(1);
         return(
-            <section className="content">
-                <section className="header">
-                    <h1 className="app-title">{orgName} Github</h1>
-                    <p className="headline">Tool to browse {orgName} repositories.</p>
+            <section styleName="content">
+                <section styleName="header">
+                    <h1>{orgName} Github</h1>
+                    <p styleName="headline">Tool to browse {orgName} repositories.</p>
                 </section>
-                <section className="results">
+                <section styleName="results">
                     <input type="text" placeholder="Search" onChange={this.filter.bind(this)}/>
-                    <span className="small-text">Sort by:</span>
-                    <a className="filter-link" href="#" onClick={this.sort.bind(this, 'name')}>Name</a>
-                    <a className="filter-link" href="#" onClick={this.sort.bind(this, 'forks_count')}>Forks</a>
-                    <a className="filter-link" href="#" onClick={this.sort.bind(this, 'watchers_count')}>Watchers</a>
+                    <span styleName="smallText">Sort by:</span>
+                    <a styleName="filterLink" href="#" onClick={this.sort.bind(this, 'name')}>Name</a>
+                    <a styleName="filterLink" href="#" onClick={this.sort.bind(this, 'forks_count')}>Forks</a>
+                    <a styleName="filterLink" href="#" onClick={this.sort.bind(this, 'watchers_count')}>Watchers</a>
                     {this.renderReposList()}
                 </section>
-                <section className="commits">
+                <section styleName="commits">
                     {this.renderCommits()}
                 </section>                
             </section>

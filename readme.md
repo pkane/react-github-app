@@ -1,7 +1,5 @@
-# react-webpack-boilerplate [![Build Status][travis-badge]][travis] [![Coverage Status][coveralls-badge]][coveralls]
-> Simple production-ready boilerplate for [React](http://facebook.github.io/react/) and [Webpack](http://webpack.github.io/) (SASS and React hot reloading) and tests with Jest.
-
-Note: if you want React server-side rendering support, take a look at my personal site repo based on this: [github.com/srn/srn.io](https://github.com/srn/srn.io)
+# react-github-app
+> React-based web app to browse Netflix GitHub repositories, search and filter, and view latest commits.
 
 ## Install
 
@@ -31,34 +29,18 @@ If you want to run the project in production, set the `NODE_ENV` environment var
 $ NODE_ENV=production npm start
 ```
 
-Also build the production bundle:
-
-```sh
-$ npm run dist
-```
-
 ## Tests
 
 ```sh
 $ npm test
 ```
 
-Only run specific tests
+(if you run into issues running tests, try running:)
 
 ```sh
-$ npm test -- NotFoundComponent
-```
-
-Coverage
-
-```sh
-$ npm test -- --coverage
+$ node --harmony_proxies node_modules/.bin/jest
 ```
 
 ## Author
 
 Paul Kane
-
-## Boilerplate
-
-MIT © [Søren Brokær](http://srn.io)

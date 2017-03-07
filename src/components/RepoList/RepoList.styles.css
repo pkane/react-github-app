@@ -1,0 +1,36 @@
+.repoList {
+  padding: 5px;
+  list-style-type: none;
+  background: #e0e0e0;
+
+  .repoListItem {
+    list-style: none;
+      padding: 5px;
+      margin: 10px 0;
+      background: #fff;
+
+      &:hover {
+      cursor: pointer;        
+      }
+
+      p {
+        font-weight: bold;
+        display: inline;
+      }
+
+      &:first-child {
+        margin-top: 0;
+      }
+
+      &:last-child {
+        margin-bottom: 0;
+      }     
+  }
+}
+
+.repoOrgAvatar {
+  width: 20px;
+  height: 20px;
+  margin-right: 6px;
+  vertical-align: middle;
+}

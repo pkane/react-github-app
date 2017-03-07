@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 
+import styles1 from '../Index/index.styles.css';
+import styles2 from './RepoDetail.styles.css';
+
 export default class RepoDetail extends Component{
 
     getCommits(){
@@ -12,8 +15,8 @@ export default class RepoDetail extends Component{
 
         return(
             <section>
-                <h3 className="headline">'{repo.name}'' Latest Commits</h3>
-                <ul className="commits-list">
+                <h3 styleName="styles1.headline">'{repo.name}'' Latest Commits</h3>
+                <ul styleName="styles2.commitsList">
                     {this.getCommits()}
                 </ul>
             </section>

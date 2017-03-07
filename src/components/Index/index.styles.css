@@ -1,0 +1,37 @@
+$background: lightblue;
+
+body {
+  background: $background;
+  font-family: "Helvetica Neue", serif;
+}
+
+.content {
+  width: 80%;
+  margin: auto;
+}
+
+.header {
+    margin: 60px 0 20px;
+}
+
+.filterLink {
+    margin: 0 0 0 5px;
+    font-size: 14px;	
+}
+
+.smallText {
+	font-size: 14px;
+	margin: 0 5px 0;
+}
+
+.headline,
+.defaultCopy {
+  margin: 0 20px 0
+}
+
+.results,
+.commits {
+    display: inline-block;
+    width: 49.9999%;
+    float: left;
+}
